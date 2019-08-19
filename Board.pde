@@ -22,14 +22,16 @@ class Board {
         spaces[r][c] = new PieceSpace(xOffset, yOffset, col);
       }
     }
+    /*
     addPiece(3, 4, new Rook(p1));
     addPiece(3, 2, new Pawn(p1));
     addPiece(1, 4, new Pawn(p2));
     addPiece(2, 3, new Bishop(p2));
-
+    addPiece(5, 3, new Queen(p1)); 
+    */
     
 
-    //fillBoard(p1, p2);
+    fillBoard(p1, p2);
   }
   
   void fillBoard(Player p1, Player p2) {
@@ -40,6 +42,7 @@ class Board {
     addPieces(7, 7, new Rook(p1), new Rook(p2));
     addPieces(7, 5, new Bishop(p1), new Bishop(p2));
     addPieces(7, 2, new Bishop(p1), new Bishop(p2));
+    addPieces(7, 3, new Queen(p1), new Queen(p2)); 
   }
   
   void addPieces(int r, int c, ChessPiece white, ChessPiece black) {
@@ -57,24 +60,6 @@ class Board {
       for(int c = 0; c < 8; c++) {
         PieceSpace s = spaces[r][c];
         s.show();
-      }
-    }
-    for(int r = 0; r < 8; r++) {
-      for(int c = 0; c < 8; c++) {
-        PieceSpace s = spaces[r][c];
-        if(s.square.isHovered() && s.piece != null) {
-          ArrayList<MoveSpace> arr = s.piece.getLegalMoves();
-          for(MoveSpace  m : arr) {
-            PVector v = m.space.square.center;
-            pushStyle();
-              if(m.isTake) fill(255, 255, 30);
-              else fill(70, 70, 255);
-              stroke(0, 43, 32);
-              strokeWeight(2);              
-              circle(v.x, v.y, 13);
-            popStyle();
-          }
-        }
       }
     }
   }

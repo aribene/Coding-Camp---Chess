@@ -15,8 +15,8 @@ class Clickable {
   }
   
   boolean isPressed() {
-    boolean r = isPressed() && !held;
-    if(r) held = false;
+    boolean r = isHovered() && mousePressed;
+    if(!r) held = false;
     return r;
   }
  

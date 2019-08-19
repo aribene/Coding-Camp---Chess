@@ -14,11 +14,11 @@ class Rook extends ChessPiece {
   
   void show(float x, float y){
     pushAll(x, y);
-      rect(0, 5, 35, 57  );
-      rect(20, -32, 11, 16  );
-      rect(-20, -32, 11, 16  );
-      rect(0, -36, 14, 24  );
-      rect(0, 36, 50, 7  );
+      rect(0, 30, 60, 20  );
+      rect(0, 0, 30, 42  );
+      rect(0, -20, 15, 20  );
+      rect(20, -20, 15, 20  );
+      rect(-20, -20, 15, 20  );
     popAll();
   }
 }

@@ -3,6 +3,13 @@ class Pawn extends ChessPiece {
     super(p);
   }
   
+  ArrayList<MoveSpace> getLegalMoves() {
+    ArrayList arr = new ArrayList<PieceSpace>();
+    //arr.add(ray(0, 1));
+    //arr.add(ray(0, 2));
+    return getMovesFromSpaces(arr); 
+  }
+  
   void show(float x, float y){
     pushAll(x, y);
       rect(0, 30, 60, 20  );
