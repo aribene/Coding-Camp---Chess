@@ -29,19 +29,9 @@ class PieceMover {
             }
           } else if(selected != null && s.square.isClicked()) {
             // trying to move, check if valid move
-            ArrayList<MoveSpace> moves = selected.piece.getLegalMoves();
-            for(MoveSpace move : moves) {
-              if(move.space == s) {
-                //valid move
-                movePiece(selected, s);
-                s.piece.setPos(r, c);
-                selected = null;                
-                switchPlayer();
-                return;
-              }
-            }
+            tryToMove(s, r, c);
           }
-           break outer; // stop searching
+          break outer; // stop searching
         }
       }
     }
@@ -53,9 +43,9 @@ class PieceMover {
       showMoveSpace = hovered;      
     }
       
-    if(showMoveSpace != null) {
-      ArrayList<MoveSpace> arr = showMoveSpace.piece.getLegalMoves();
-      for(MoveSpace  m : arr) {
+    if(showMoveSpace != null && showMoveSpace.piece != null) {
+      ArrayList<MoveSpace> moves = showMoveSpace.piece.getLegalMoves();
+      for(MoveSpace  m : moves) {
         PVector v = m.space.square.center;
         pushStyle();
           if(m.isTake) fill(255, 255, 30);
@@ -75,10 +65,24 @@ class PieceMover {
       to.piece = from.piece;
       from.piece = null;
       from = null;
+      to.piece.hasMoved = true;
   }
   
   void switchPlayer() {
     if(turn == p1) turn = p2;
     else turn = p1;
+  }
+  
+  void tryToMove(PieceSpace s, int r, int c) {
+    ArrayList<MoveSpace> moves = selected.piece.getLegalMoves();
+    for(MoveSpace move : moves) {
+      if(move.space == s) {
+        //valid move
+        movePiece(selected, s);
+        s.piece.setPos(r, c);
+        selected = null;                
+        switchPlayer();
+      }
+    }
   }
 }

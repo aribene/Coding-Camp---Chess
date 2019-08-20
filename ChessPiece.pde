@@ -2,6 +2,7 @@ abstract class ChessPiece {
   Player owner;
   color col;
   int r, c;
+  boolean hasMoved;
   PieceSpace[][] spaces;
  
   ChessPiece(Player p) {
@@ -13,15 +14,12 @@ abstract class ChessPiece {
     spaces = s;
   }
   
-  void show(float x, float y) {}
+  abstract void show(float x, float y);
+  abstract ArrayList<MoveSpace> getLegalMoves();
   
   void setPos(int r, int c){
     this.r = r;
     this.c = c;
-  }
-  ArrayList<MoveSpace> getLegalMoves() {
-    ArrayList arr = new ArrayList<MoveSpace>();
-    return arr;
   }
   
   ArrayList<MoveSpace> getMovesFromSpaces(ArrayList<PieceSpace> arr) {
@@ -41,7 +39,7 @@ abstract class ChessPiece {
   
   ArrayList<PieceSpace> ray(int xChange, int yChange) {
     ArrayList<PieceSpace> arr = new ArrayList<PieceSpace>();
-    yChange *= - 1; //invert y
+    if(owner.forward) yChange *= - 1; //invert y
     int x = c + xChange;
     int y = r + yChange;
     while(inBounds(x, y)) {
@@ -54,7 +52,8 @@ abstract class ChessPiece {
     return arr;
   }
   
-  PieceSpace canMove(int xChange, int yChange) {
+  PieceSpace at(int xChange, int yChange) {
+    if(owner.forward) yChange *= - 1; //invert y
     if(!inBounds(r + yChange, c + xChange)) return null;
     return spaces[r + yChange][c + xChange];
   }

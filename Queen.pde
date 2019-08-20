@@ -22,7 +22,15 @@ class Queen extends ChessPiece {
   
     void show(float x, float y){
     pushAll(x, y);
-      circle(0, 0, 30);
+      rect(0, 35, 60, 15);
+      circle(10, -30, 15);
+      quad(10, -30, 20, 30, 0, 30, -5, 10);
+      circle(-10, -30, 15);
+      quad(-10, -30, -20, 30, 0, 30, 5, 10);
+      circle(30, -20, 15);
+      triangle(30, -20, 20, 30, 0, 30);
+      circle(-30, -20, 15);
+      triangle(-29.5, -20, -20, 30, 0, 30);
     popAll();
   }
 }

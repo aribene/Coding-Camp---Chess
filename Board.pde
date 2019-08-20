@@ -43,6 +43,11 @@ class Board {
     addPieces(7, 5, new Bishop(p1), new Bishop(p2));
     addPieces(7, 2, new Bishop(p1), new Bishop(p2));
     addPieces(7, 3, new Queen(p1), new Queen(p2)); 
+    addPieces(7, 1, new Knight(p1), new Knight(p2)); 
+    addPieces(7, 6, new Knight(p1), new Knight(p2)); 
+    addPieces(7, 4, new King(p1), new King(p2));
+
+
   }
   
   void addPieces(int r, int c, ChessPiece white, ChessPiece black) {

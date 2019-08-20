@@ -18,7 +18,7 @@ class Rook extends ChessPiece {
       rect(0, 0, 30, 42  );
       rect(0, -20, 15, 20  );
       rect(20, -20, 15, 20  );
-      rect(-20, -20, 15, 20  );
+      rect(-20, -19.5, 15, 20  );
     popAll();
   }
 }

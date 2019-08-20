@@ -1,7 +1,9 @@
 class Player {
+  boolean forward;
   color col;
   
-  Player(color c) {
+  Player(color c, boolean f) {
     col = c;
+    forward = f;
   }
 }

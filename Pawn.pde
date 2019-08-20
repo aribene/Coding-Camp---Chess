@@ -4,10 +4,25 @@ class Pawn extends ChessPiece {
   }
   
   ArrayList<MoveSpace> getLegalMoves() {
-    ArrayList arr = new ArrayList<PieceSpace>();
-    //arr.add(ray(0, 1));
-    //arr.add(ray(0, 2));
-    return getMovesFromSpaces(arr); 
+    ArrayList moves = new ArrayList<PieceSpace>();
+    PieceSpace ahead = super.at(0, 1);
+    if(ahead != null) {
+      if(ahead.piece == null) moves.add(ahead);
+      //moving ahead by 2 on first move
+      PieceSpace ahead2 = at(0, 2);
+      if(!hasMoved && ahead.piece == null && ahead2 != null && ahead2.piece == null) moves.add(ahead2);    
+    }
+    
+    
+    //taking diagonally
+    PieceSpace diag1 = at(1, 1);
+    PieceSpace diag2 = at(-1, 1);
+    if(diag1 != null && diag1.piece != null) moves.add(diag1);
+    if(diag2 != null && diag2.piece != null) moves.add(diag2);
+
+
+    
+    return getMovesFromSpaces(moves); 
   }
   
   void show(float x, float y){
