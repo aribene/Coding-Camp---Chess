@@ -3,26 +3,29 @@ class Pawn extends ChessPiece {
     super(p);
   }
   
-  ArrayList<MoveSpace> getLegalMoves() {
-    ArrayList moves = new ArrayList<PieceSpace>();
-    PieceSpace ahead = super.at(0, 1);
-    if(ahead != null) {
-      if(ahead.piece == null) moves.add(ahead);
-      //moving ahead by 2 on first move
-      PieceSpace ahead2 = at(0, 2);
-      if(!hasMoved && ahead.piece == null && ahead2 != null && ahead2.piece == null) moves.add(ahead2);    
-    }
+  int pieceValue() {return 1;}
+  
+  ArrayList<Move> getMoves(Position p, int r, int f) {
+    ArrayList<Move> moves = new ArrayList<Move>();
+    super.setTemp(p, r, f);
+    
+    ChessPiece ahead = pieceAt(0, 1);
+    if(ahead == null) moves.add(at(0, 1));
+    
+    //moving ahead by 2 on first move
+    ChessPiece ahead2 = pieceAt(0, 2);
+    if((r == 1 || r == 6) && ahead == null && ahead2 == null) moves.add(at(0, 2));    
     
     
     //taking diagonally
-    PieceSpace diag1 = at(1, 1);
-    PieceSpace diag2 = at(-1, 1);
-    if(diag1 != null && diag1.piece != null) moves.add(diag1);
-    if(diag2 != null && diag2.piece != null) moves.add(diag2);
+    ChessPiece diag1 = pieceAt(1, 1);
+    ChessPiece diag2 = pieceAt(-1, 1);
+    if(diag1 != null) moves.add(at(1, 1));
+    if(diag2 != null) moves.add(at(-1, 1));
 
 
     
-    return getMovesFromSpaces(moves); 
+    return moves; 
   }
   
   void show(float x, float y){

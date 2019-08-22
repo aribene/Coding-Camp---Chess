@@ -3,8 +3,11 @@ class King extends ChessPiece {
     super(p);
   }
   
-  ArrayList<MoveSpace> getLegalMoves() {
-    ArrayList moves = new ArrayList<PieceSpace>();
+  int pieceValue() {return 15;}
+  
+  ArrayList<Move> getMoves(Position p, int r, int f) {
+    ArrayList<Move> moves = new ArrayList<Move>();
+    super.setTemp(p, r, f);
     
     // up, down, and sideways
     moves.add(at(1, 0));
@@ -17,7 +20,7 @@ class King extends ChessPiece {
     moves.add(at(-1, 1));
     moves.add(at(1, -1));
     moves.add(at(-1, -1));
-    return getMovesFromSpaces(moves);
+    return moves;
   }
   
   void show(float x, float y) {

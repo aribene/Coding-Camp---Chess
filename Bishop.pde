@@ -2,14 +2,17 @@ class Bishop extends ChessPiece {
   Bishop(Player p) {
     super(p);
   }
+  
+  int pieceValue() {return 3;}
       
-  ArrayList<MoveSpace> getLegalMoves() {
-    ArrayList arr = new ArrayList<PieceSpace>();
-    arr.addAll(ray(1, 1));
-    arr.addAll(ray(-1, 1));
-    arr.addAll(ray(1, -1));
-    arr.addAll(ray(-1, -1));
-    return getMovesFromSpaces(arr);
+  ArrayList<Move> getMoves(Position p, int r, int f) {
+    ArrayList<Move> moves = new ArrayList<Move>();
+    super.setTemp(p, r, f);
+    moves.addAll(ray(1, 1));
+    moves.addAll(ray(-1, 1));
+    moves.addAll(ray(1, -1));
+    moves.addAll(ray(-1, -1));
+    return moves;
   }
   
   

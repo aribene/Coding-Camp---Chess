@@ -1,9 +1,12 @@
-class Player {
+abstract class Player {
   boolean forward;
   color col;
   
-  Player(color c, boolean f) {
-    col = c;
-    forward = f;
+  Player(color col) {
+    this.col = col;
   }
+  
+  abstract void setBoard(Board board);
+  abstract Move awaitMove();
+  abstract void opponentMove(Move m);
 }

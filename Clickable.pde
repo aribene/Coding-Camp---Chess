@@ -10,7 +10,7 @@ class Clickable {
   }
   
   boolean isHovered() {
-    return abs(center.x - mouseX) < sizeX / 2 &&
+    return abs(center.x - mouseX) < sizeX / 2 && 
            abs(center.y - mouseY) < sizeY / 2;
   }
   
@@ -19,15 +19,15 @@ class Clickable {
     if(!r) held = false;
     return r;
   }
- 
+  
   boolean isClicked() {
     boolean r = isPressed() && !held;
-    if(r) held = true; 
+    if(r) held = true;
     return r;
   }
   
   void show() {
-    //rectMod(CENTER);
+    //rectMode(CENTER);
     rect(center.x, center.y, sizeX, sizeY);
   }
 }

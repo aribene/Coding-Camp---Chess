@@ -1,69 +1,74 @@
 class Board {
+  Position pos;
   PieceSpace[][] spaces;
-
-  color c1 = color(0, 100, 8);
-  color c2 = color(207);
-
-  float w = width / 8.0;
-  float h = height / 8.0;
-
-  Board(Player p1, Player p2) {
-    spaces = new PieceSpace[8][8];
-    for (int r = 0; r < 8; r++) {
-      float yOffset = r * h + h/2;
-      for (int c = 0; c < 8; c++) {
-      float xOffset = c * w + w/2;
+  
+  final color c1 = color(80); // black
+  //final color c2 = color(255); // white
+  final color c2 = color(182, 0, 0);
+  
+  final float w = width / 8.0;
+  final float h = height / 8.0;
+  
+  Board() {
+    pos = new Position();
+    spaces = new PieceSpace[8][8]; // initialize 2D array with 8x8 grid of PieceSpaces
+    
+    // cycle through all 64, make PieceSpace instance, set color, put in 2D array
+    for(int r = 0; r < 8; r++) {
+      // ranks
+      float yOffset = map(r, 0, 7, height - h/2, h/2);//r * h + h/2;
+      for(int f = 0; f < 8; f++) {
+        // files
+        float xOffset = f * w + w/2;
         color col;
-        if((r + c) % 2 == 1) {
-          col = c1;
-        } else {
-          col = c2;
-        }
-        spaces[r][c] = new PieceSpace(xOffset, yOffset, col);
+        //if((r + f) % 2 == 1) col = c1; // black
+        //else col = c2; // white
+        col = color(0, r * 33, f *33);
+        
+        // put in array
+        spaces[r][f] = new PieceSpace(xOffset, yOffset, col, r, f, this);
       }
     }
+  }
+  
+  void fillBoard(Player p1, Player p2) {
     /*
     addPiece(3, 4, new Rook(p1));
     addPiece(3, 2, new Pawn(p1));
     addPiece(1, 4, new Pawn(p2));
     addPiece(2, 3, new Bishop(p2));
-    addPiece(5, 3, new Queen(p1)); 
     */
     
-
-    fillBoard(p1, p2);
-  }
-  
-  void fillBoard(Player p1, Player p2) {
+    // start the board with pieces in the right places
     for(int i = 0; i < 8; i++) {
-      addPieces(6, i, new Pawn(p1), new Pawn(p2));
+      addPiecePair(1, i, new Pawn(p1), new Pawn(p2));
     }
-    addPieces(7, 0, new Rook(p1), new Rook(p2));
-    addPieces(7, 7, new Rook(p1), new Rook(p2));
-    addPieces(7, 5, new Bishop(p1), new Bishop(p2));
-    addPieces(7, 2, new Bishop(p1), new Bishop(p2));
-    addPieces(7, 3, new Queen(p1), new Queen(p2)); 
-    addPieces(7, 1, new Knight(p1), new Knight(p2)); 
-    addPieces(7, 6, new Knight(p1), new Knight(p2)); 
-    addPieces(7, 4, new King(p1), new King(p2));
-
-
+    addPiecePair(0, 0, new Rook(p1), new Rook(p2));
+    addPiecePair(0, 1, new Knight(p1), new Knight(p2));
+    addPiecePair(0, 2, new Bishop(p1), new Bishop(p2));
+    addPiecePair(0, 3, new Queen(p1), new Queen(p2));
+    addPiecePair(0, 4, new King(p1), new King(p2));
+    addPiecePair(0, 5, new Bishop(p1), new Bishop(p2));
+    addPiecePair(0, 6, new Knight(p1), new Knight(p2));
+    addPiecePair(0, 7, new Rook(p1), new Rook(p2));
   }
   
-  void addPieces(int r, int c, ChessPiece white, ChessPiece black) {
-    addPiece(r, c, white);
-    addPiece(7 - r, c, black);
+  void addPiecePair(int r, int f, ChessPiece white, ChessPiece black) {
+    // add pieces to both black and white sides using single (r,f) pair
+    addPiece(r, f, white);
+    addPiece(7 - r, f, black);
   }
-
-  void addPiece(int r, int c, ChessPiece toAdd) {
-    spaces[r][c].piece = toAdd;
-    toAdd.setPos(r, c);
-    toAdd.setSpaces(spaces);
+  
+  void addPiece(int r, int f, ChessPiece toAdd) {
+    // add a piece to the board and set it up
+    pos.pieces[r][f] = toAdd;
   }
+  
   void show() {
+    // on loop: display all PieceSpace tiles, chess piece included
     for(int r = 0; r < 8; r++) {
-      for(int c = 0; c < 8; c++) {
-        PieceSpace s = spaces[r][c];
+      for(int f = 0; f < 8; f++) {
+        PieceSpace s = spaces[r][f];
         s.show();
       }
     }

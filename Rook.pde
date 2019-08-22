@@ -3,13 +3,16 @@ class Rook extends ChessPiece {
     super(p);
   }
   
-  ArrayList<MoveSpace> getLegalMoves() {
-    ArrayList arr = new ArrayList<PieceSpace>();
-    arr.addAll(ray(1, 0));
-    arr.addAll(ray(0, 1));
-    arr.addAll(ray(-1, 0));
-    arr.addAll(ray(0, -1));
-    return getMovesFromSpaces(arr);
+  int pieceValue() {return 5;}
+  
+  ArrayList<Move> getMoves(Position p, int r, int f) {
+    ArrayList<Move> moves = new ArrayList<Move>();
+    super.setTemp(p, r, f);
+    moves.addAll(ray(1, 0));
+    moves.addAll(ray(0, 1));
+    moves.addAll(ray(-1, 0));
+    moves.addAll(ray(0, -1));
+    return moves;
   }
   
   void show(float x, float y){

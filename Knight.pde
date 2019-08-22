@@ -3,8 +3,12 @@ class Knight extends ChessPiece {
     super(p);
   }
   
-  ArrayList<MoveSpace> getLegalMoves() {
-    ArrayList moves = new ArrayList<PieceSpace>();
+  
+  int pieceValue() {return 3;}
+  
+  ArrayList<Move> getMoves(Position p, int r, int f) {
+    ArrayList<Move> moves = new ArrayList<Move>();
+    super.setTemp(p, r, f);;
     moves.add(at(2, -1));
     moves.add(at(2, 1));
     moves.add(at(1, -2));
@@ -14,7 +18,7 @@ class Knight extends ChessPiece {
     moves.add(at(-1, -2));
     moves.add(at(-1, 2));
   
-    return getMovesFromSpaces(moves);
+    return moves;
   }
   void show(float x, float y) {
     pushAll(x, y);
